@@ -1,0 +1,157 @@
+{
+    "NOTES":"This is only an example, not functional profile.",
+    "shared_devices": {
+        "i2c_mux": {
+            "class": "TCA9548",
+            "dev_addr": 112,
+            "i2c_bus": {
+                "class": "I2C",
+                "dev_name": "/dev/i2c-0"
+            }
+        },
+        "io_mux": {
+            "class": "PCA9506",
+            "rst": {
+                "class": "GPIO",
+                "pin_id": 992,
+                "default_dir": "output",
+                "is_inversion": 0
+            },
+            "dev_addr": 32,
+            "i2c_bus": {
+                "class": "I2C",
+                "dev_name": "/dev/i2c-1"
+            }
+        },
+        "spi_s1": {
+            "class": "Pin",
+            "io": "@io_mux",
+            "pin_id": 4,
+            "pin_dir": "output"
+        },
+        "spi_s0": {
+            "class": "Pin",
+            "io": "@io_mux",
+            "pin_id": 3,
+            "pin_dir": "output"
+        },
+        "spi_bus_mux": {
+            "class": "MIXAD5761HYC",
+            "axi4_bus": "/dev/MIX_AD5761_HYC_0"
+        },
+        "width_measure": {
+            "class": "MIXWidthMeasureSG",
+            "axi4_bus": "/dev/XVR_WidthMeasure_1"
+        }
+    },
+    "duts": {
+        "dut0": {
+            "i2c_dut": {
+                "class": "I2C",
+                "dev_name": "/dev/i2c-2"
+            },
+            "carrier": {
+                "class": "Carrier",
+                "i2c_bus": "@i2c_mux.3"
+            },
+
+            "transition": {
+                "class": "TransitionBoard",
+                "i2c_bus": "@i2c_mux.3"
+            },
+            "base": {
+                "class": "BaseBoard",
+                "i2c_bus": "@i2c_mux.4"
+            },
+            "led_fan": {
+                "class": "LedFan"
+            },
+            "predefine": {
+                "class": "PreDefine"
+            },
+            "psu1": {
+                "allowed": ["J0H-PSU1-0-001"],
+                "2-step-power-on": {
+                    "i2c": "@i2c_mux.0",
+                    "power_control": "@io_mux.5",
+                    "power_active_low": false,
+                    "eeprom_i2c_addr": 80
+                },
+                "cs_na_pin": {
+                    "class": "Pin",
+                    "io": "@io_mux",
+                    "pin_id": 6,
+                    "pin_dir": "output"
+                },
+                "i2c_bus": "@i2c_mux.0",
+                "inh_pin": {
+                    "class": "GPIO",
+                    "pin_id": 993,
+                    "default_dir": "output",
+                    "is_inversion": 0
+                },
+                "spi_s1": "@spi_s1",
+                "spi_s0": "@spi_s0",
+                "spi_bus": "@spi_bus_mux"
+            },
+            "psu2": {
+                "allowed": ["J0H-PSU2-0-001"],
+                "2-step-power-on": {
+                    "i2c": "@i2c_mux.1",
+                    "power_control": "@io_mux.7",
+                    "power_active_low": false,
+                    "eeprom_i2c_addr": 80
+                },
+                "io_mux": "@io_mux",
+                "i2c_bus": "@i2c_mux.1",
+                "inh_pin": {
+                    "class": "GPIO",
+                    "pin_id": 994,
+                    "default_dir": "output",
+                    "is_inversion": 0
+                },
+                "spi_s0": {
+                    "class": "GPIO",
+                    "pin_id": 995,
+                    "default_dir": "output",
+                    "is_inversion": 0
+                },
+                "spi_bus": {
+                    "class": "MIXAD5761HYC",
+                    "axi4_bus": "/dev/MIX_AD5761_HYC_1"
+                }
+            },
+            "dvm": {
+                "allowed": ["J0H-DMM0-0-001"],
+                "2-step-power-on": {
+                    "i2c": "@i2c_mux.2",
+                    "power_control": "@io_mux.11",
+                    "power_active_low": false,
+                    "eeprom_i2c_addr": 80
+                },
+                "cs_pin_mux": "@io_mux",
+                "spi_0": {
+                    "class": "GPIO",
+                    "pin_id": 1005,
+                    "default_dir": "output",
+                    "is_inversion": 0
+                },
+                "spi_bus": {
+                    "class": "MIXADS8900HYC",
+                    "axi4_bus": "/dev/MIX_ADS8900_HYC_0"
+                }
+            },
+            "calibration": {
+                "class": "Calibration",
+                "spi_s1": "@spi_s1",
+                "spi_s0": "@spi_s0",
+                "spi_bus": "@spi_bus_mux"
+            },
+            "site": 0,
+             "test_function_path": "/mix/addon/test_function"
+        }
+    },
+    "network": {
+        "pins": [997, 998, 999, 1000, 1001, 1002, 1003, 1004]
+    }
+}
