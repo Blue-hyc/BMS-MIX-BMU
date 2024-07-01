@@ -1,0 +1,15 @@
+{
+"MIX_FW_PACKAGE":"6",
+"mix_lynx_os_MadagascarA":"7.0.155",
+"PL_Certification_DMM007_HYC":"10",
+"Addon_Certification_DMM007_HYC":"2",
+"fwup_compatibility_v5":"1.0.10",
+"mix_rpc_MadagascarA":"2.0.44",
+"mix_launcher":"0.0.80",
+"mix_datapath_MadagascarA":"2.0.19",
+"mix_lynx_core_driver_MadagascarA":"2.0.49",
+"mix_rootfs_MadagascarA":"2.0.15",
+"mix_uboot":"1.0.33",
+"mix_kernel":"1.0.35",
+"mix_petalinux":"1.0.97"
+}
